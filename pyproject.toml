@@ -1,26 +1,26 @@
 [project]
 authors = [{ name = "Dan Egnor", email = "egnor@ofb.net" }]
-description = "Minor wrapper for subprocess.run() with defaults and logging"
-name = "ok-subprocess-defaults"
+description = "Wrapper for subprocess.run() with defaults and logging"
+name = "ok-subprocess-runner"
 readme = "README.md"
 requires-python = ">=3.10"
-urls.Homepage = "https://github.com/egnor/ok-py-subprocess-defaults#readme"
-urls.Repository = "https://github.com/egnor/ok-py-subprocess-defaults.git"
-version = "0.2"
+urls.Homepage = "https://github.com/egnor/ok-py-subprocess-runner#readme"
+urls.Repository = "https://github.com/egnor/ok-py-subprocess-runner.git"
+version = "0.3"
 
 [build-system]
-build-backend = "uv_build"
 requires = ["uv_build>=0.9.13,<0.10.0"]
+build-backend = "uv_build"
 
 [dependency-groups]
-dev = ["black", "mypy", "pytest", "ruff"]
-
-[tool.black]
-line-length = 80
+dev = ["mypy", "pytest", "ruff"]
 
 [tool.mypy]
 exclude_gitignore = true
 files = "."
+
+[tool.ruff]
+line-length = 80
 
 [tool.uv.build-backend]
 module-root = ""

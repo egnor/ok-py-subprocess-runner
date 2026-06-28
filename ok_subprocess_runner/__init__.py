@@ -10,8 +10,12 @@ import subprocess
 
 
 @dataclasses.dataclass
-class SubprocessDefaults:
-    """Default values for subprocess.run, plus some convenience methods."""
+class SubprocessRunner:
+    """Wrapper for subprocess.run, plus some convenience methods.
+
+    sub = SubprocessRunner()
+    sub("echo", "Hello", "World")
+    """
 
     args_prefix: list = dataclasses.field(default_factory=list)
     """Arguments (including command) to prepend to args for run methods."""
@@ -28,7 +32,7 @@ class SubprocessDefaults:
     log_level: int = logging.INFO
     """Logging level to print commands, or logging.NOTSET to disable."""
 
-    def run(self, *args, **kw):
+    def __call__(self, *args, **kw):
         """Wraps subprocess.run (with args directly listed), logging the
         command (per log_level) and applying defaults from this object."""
 
@@ -51,7 +55,7 @@ class SubprocessDefaults:
         """Like run, but captures and directly returns stdout text."""
 
         kw = {"stdout": subprocess.PIPE, "text": True, **kw}
-        return self.run(*args, **kw).stdout
+        return self(*args, **kw).stdout
 
     def stdout_lines(self, *args, **kw):
         """Like stdout_text, but splits the text into lines."""
@@ -66,7 +70,7 @@ class SubprocessDefaults:
         )
 
 
-def _path_str(path_or_str):
+def _path_str(path_or_str: os.PathLike | str) -> str:
     if isinstance(path_or_str, str):
         return path_or_str
     if isinstance(path_or_str, os.PathLike):
