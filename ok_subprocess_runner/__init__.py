@@ -3,6 +3,7 @@ Minor utilities and wrappers for the Python subprocess library
 """
 
 import dataclasses
+import json
 import logging
 import os
 import shlex
@@ -17,6 +18,11 @@ def run(*args, **kw):
 def stdout_text(*args, **kw) -> str:
     """Returns subprocess stdout using `SubprocessRunner()` defaults."""
     return SubprocessRunner().stdout_text(*args, **kw)
+
+
+def stdout_json(*args, **kw) -> object:
+    """Returns subprocess JSON stdout using `SubprocessRunner()` defaults."""
+    return SubprocessRunner().stdout_json(*args, **kw)
 
 
 def stdout_lines(*args, **kw) -> list[str]:
@@ -76,6 +82,11 @@ class SubprocessRunner:
         """Like stdout_text, but splits the text into lines."""
 
         return self.stdout_text(*args, **kw).splitlines()
+
+    def stdout_json(self, *args, **kw) -> object:
+        """Like stdout_text, but parsed as JSON."""
+
+        return json.loads(self.stdout_text(*args, **kw))
 
     def copy(self) -> "SubprocessRunner":
         """Returns a copy of this object with the same defaults."""

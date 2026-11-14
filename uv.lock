@@ -162,7 +162,7 @@ wheels = [
 
 [[package]]
 name = "ok-subprocess-runner"
-version = "0.3"
+version = "0.5"
 source = { editable = "." }
 
 [package.dev-dependencies]

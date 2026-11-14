@@ -211,6 +211,11 @@ def test_stdout_lines():
     assert sub.stdout_lines("echo", "Hello\nWorld!") == ["Hello", "World!"]
 
 
+def test_stdout_json():
+    sub = SubprocessRunner()
+    assert sub.stdout_json("echo", '{"key":\n"value"}') == {"key": "value"}
+
+
 def test_copy():
     sub = SubprocessRunner()
     sub.check = False
