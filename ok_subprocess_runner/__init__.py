@@ -20,7 +20,7 @@ def stdout_text(*args, **kw) -> str:
     return SubprocessRunner().stdout_text(*args, **kw)
 
 
-def stdout_json(*args, **kw) -> object:
+def stdout_json(*args, **kw) -> dict | float | int | list | str:
     """Returns subprocess JSON stdout using `SubprocessRunner()` defaults."""
     return SubprocessRunner().stdout_json(*args, **kw)
 
@@ -83,7 +83,7 @@ class SubprocessRunner:
 
         return self.stdout_text(*args, **kw).splitlines()
 
-    def stdout_json(self, *args, **kw) -> object:
+    def stdout_json(self, *args, **kw) -> dict | float | int | list | str:
         """Like stdout_text, but parsed as JSON."""
 
         return json.loads(self.stdout_text(*args, **kw))
